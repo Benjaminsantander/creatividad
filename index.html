@@ -154,6 +154,7 @@
         <a href="#" onclick="loadNavigation('publicaciones')">Publicaciones</a>
         <a href="#" onclick="loadNavigation('categorias')">Categorías</a>
         <a href="#" onclick="loadNavigation('contacto')">Contacto</a>
+        <a href="#" onclick="loadNovedades()">Novedades</a>
     </div>
     
     <div class="container">
@@ -398,5 +399,45 @@
     }
 </script>
 
+<script>
+    const novedadesContent = `
+        <div class="post">
+            <img src="https://via.placeholder.com/120" alt="IA para corrección de postura">
+            <div>
+                <h3>Corrección de postura con IA</h3>
+                <p>
+                    Una novedosa herramienta impulsada por inteligencia artificial 
+                    que analiza tus movimientos en tiempo real mediante detección de imágenes 
+                    para mejorar tu postura y evitar lesiones al realizar ejercicios.
+                </p>
+            </div>
+        </div>
+        <div class="post">
+            <img src="https://via.placeholder.com/120" alt="Planificador personalizado">
+            <div>
+                <h3>Planificador de ejercicios personalizado</h3>
+                <p>
+                    Diseña una rutina personalizada según tus objetivos, nivel físico, y disponibilidad de tiempo. 
+                    Ideal para quienes buscan una guía clara para maximizar resultados.
+                </p>
+            </div>
+        </div>
+        <div class="post">
+            <img src="https://via.placeholder.com/120" alt="Analizador de progreso">
+            <div>
+                <h3>Analizador de progreso</h3>
+                <p>
+                    Subiendo tus métricas, podrás visualizar tu progreso a través de gráficos interactivos 
+                    y recibir recomendaciones sobre cómo optimizar tu rutina.
+                </p>
+            </div>
+        </div>
+    `;
+
+    function loadNovedades() {
+        const contentDiv = document.getElementById('content');
+        contentDiv.innerHTML = novedadesContent;
+    }
+</script>
 </body>
 </html>
