@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro de Entrenamiento Completo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .nav-bar {
+            background: #444;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .nav-bar a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        .nav-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .main-content {
+            flex: 3;
+            padding: 20px;
+            background: #f4f4f4;
+            border-radius: 5px;
+        }
+
+        .post {
+            background: #fff;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .post img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        .post h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .post p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .sidebar {
+            flex: 1;
+            padding: 20px;
+            margin-left: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .sidebar ul li a:hover {
+            color: #007BFF;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .sidebar {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+
+            .post {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .post img {
+                margin-bottom: 10px;
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Foro de Entrenamiento Completo</h1>
+    </header>
+    <div class="nav-bar">
+        <a href="#" onclick="loadNavigation('inicio')">Inicio</a>
+        <a href="#" onclick="loadNavigation('publicaciones')">Publicaciones</a>
+        <a href="#" onclick="loadNavigation('categorias')">Categorías</a>
+        <a href="#" onclick="loadNavigation('contacto')">Contacto</a>
+    </div>
+    
+    <div class="container">
+        <!-- Contenido Principal -->
+        <div class="main-content" id="content">
+            <p>Bienvenidos a nuestra aplicación universitaria, el lugar donde el deporte y la comunidad se encuentran para mantenernos activos, informados y unidos!</p>
+        </div>
+        <!-- Barra Lateral -->
+        <div class="sidebar">
+            <h3>Categorías</h3>
+            <ul>
+                <li><a onclick="loadCategory('fuerza')">Fuerza</a></li>
+                <li><a onclick="loadCategory('cardio')">Cardio</a></li>
+                <li><a onclick="loadCategory('flexibilidad')">Flexibilidad</a></li>
+                <li><a onclick="loadCategory('nutricion')">Nutrición</a></li>
+                <li><a onclick="loadCategory('avanzados')">Avanzados</a></li>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Foro de Entrenamiento Completo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Datos de categorías
+        const categories = {
+            fuerza: `
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Rutinas de Fuerza">
+                    <div>
+                        <h3>Rutinas para principiantes</h3>
+                        <p>Descubre ejercicios básicos para mejorar tu fuerza muscular.</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Entrenamientos Avanzados">
+                    <div>
+                        <h3>Entrenamiento de fuerza avanzada</h3>
+                        <p>Planes de entrenamiento con pesas y barras.</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Técnicas de Fuerza">
+                    <div>
+                        <h3>Técnicas para levantamiento</h3>
+                        <p>Aprende las técnicas correctas para evitar lesiones.</p>
+                    </div>
+                </div>`,
+            cardio: `
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Rutinas Cardio">
+                    <div>
+                        <h3>Correr para principiantes</h3>
+                        <p>Empieza tu rutina de correr con consejos esenciales.</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Entrenamiento HIIT">
+                    <div>
+                        <h3>HIIT</h3>
+                        <p>Entrenamientos de alta intensidad en 15 minutos.</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Ejercicios Cardio en Casa">
+                    <div>
+                        <h3>Cardio en casa</h3>
+                        <p>Ejercicios simples sin equipo.</p>
+                    </div>
+                </div>`,
+            flexibilidad: `
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Estiramientos">
+                    <div>
+                        <h3>Rutinas de estiramiento</h3>
+                        <p>Aumenta tu flexibilidad con estiramientos simples.</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Yoga Básico">
+                    <div>
+                        <h3>Yoga básico</h3>
+                        <p>Posiciones esenciales para principiantes.</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Posturas Avanzadas">
+                    <div>
+                        <h3>Posturas avanzadas</h3>
+                        <p>Mejora tu técnica con estas posturas desafiantes.</p>
+                    </div>
+                </div>`,
+            nutricion: `
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Dietas Saludables">
+                    <div>
+                        <h3>Dietas para principiantes</h3>
+                        <p>Mejora tu salud con estos consejos nutricionales.</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Proteínas">
+                    <div>
+                        <h3>Alimentos ricos en proteínas</h3>
+                        <p>Opciones de alimentos para construir músculo.</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Planificación Nutricional">
+                    <div>
+                        <h3>Planificación semanal</h3>
+                        <p>Organiza tus comidas para toda la semana.</p>
+                    </div>
+                </div>`,
+            avanzados: `
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Fuerza Avanzada">
+                    <div>
+                        <h3>Programas de fuerza</h3>
+                        <p>Optimiza tu rutina con estas estrategias avanzadas.</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Entrenamiento Intensivo">
+                    <div>
+                        <h3>Entrenamiento intensivo</h3>
+                        <p>Desafíos para expertos en resistencia y fuerza.</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://via.placeholder.com/120" alt="Preparación Física">
+                    <div>
+                        <h3>Preparación física</h3>
+                        <p>Entrenamientos específicos para deportes.</p>
+                    </div>
+                </div>`
+        };
+
+        // Función para cargar contenido dinámicamente
+        function loadCategory(category) {
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = categories[category] || '<p>Categoría no encontrada.</p>';
+        }
+    </script>
+
+<script>
+    const navigationContent = {
+        inicio: `
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Bienvenida">
+                <div>
+                    <h3>¡Bienvenido al Foro!</h3>
+                    <p>Un espacio para aprender y compartir sobre entrenamiento y salud.</p>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Nuevos Usuarios">
+                <div>
+                    <h3>Guía para nuevos usuarios</h3>
+                    <p>Consejos para empezar a usar este foro de manera eficiente.</p>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Destacados">
+                <div>
+                    <h3>Temas destacados</h3>
+                    <p>Consulta las discusiones más populares del momento.</p>
+                </div>
+            </div>`,
+        publicaciones: `
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Publicación Nutrición">
+                <div>
+                    <h3>La importancia de las proteínas</h3>
+                    <p>Cómo las proteínas pueden mejorar tu desempeño físico.</p>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Publicación Ejercicios">
+                <div>
+                    <h3>Rutinas rápidas de 15 minutos</h3>
+                    <p>Entrenamientos eficientes para días ocupados.</p>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Publicación Motivación">
+                <div>
+                    <h3>Cómo mantener la motivación</h3>
+                    <p>Estrategias para no abandonar tu rutina de ejercicio.</p>
+                </div>
+            </div>`,
+        categorias: `
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Categoría Fuerza">
+                <div>
+                    <h3>Explora Fuerza</h3>
+                    <p>Encuentra rutinas para mejorar tu fuerza muscular.</p>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Categoría Nutrición">
+                <div>
+                    <h3>Explora Nutrición</h3>
+                    <p>Descubre consejos para una alimentación saludable.</p>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Categoría Cardio">
+                <div>
+                    <h3>Explora Cardio</h3>
+                    <p>Entrenamientos para mejorar tu resistencia.</p>
+                </div>
+            </div>`,
+        contacto: `
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Contacto Equipo">
+                <div>
+                    <h3>Conecta con el equipo</h3>
+                    <p>Contáctanos para preguntas o sugerencias sobre el foro.</p>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Contacto Comunidad">
+                <div>
+                    <h3>Únete a la comunidad</h3>
+                    <p>Conoce a otros miembros interesados en el fitness.</p>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://via.placeholder.com/120" alt="Contacto Feedback">
+                <div>
+                    <h3>Feedback</h3>
+                    <p>Envíanos tus ideas para mejorar este espacio.</p>
+                </div>
+            </div>`
+    };
+
+    // Función para manejar navegación desde botones
+    function loadNavigation(section) {
+        const contentDiv = document.getElementById('content');
+        contentDiv.innerHTML = navigationContent[section] || '<p>Sección no encontrada.</p>';
+    }
+</script>
+
+</body>
+</html>
